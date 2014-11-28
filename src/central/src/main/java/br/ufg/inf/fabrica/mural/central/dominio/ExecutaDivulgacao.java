@@ -99,32 +99,20 @@ public class ExecutaDivulgacao implements Serializable, Persistable<Long> {
     public void executarDivulgacao() {      
         Date dia = new Date();        
         Collection listaDivulgacoes = obterTodasDivulgacoesAgendadas(); 
-        listaPublicacao = filtraPorPublicacao(listaDivulgacoes);
-        listaNotificacao = filtraPorNotificacao(listaDivulgacoes);
-
-    }
-/*
-    public Collection divulgaPublicacao() {
         
-        return null;
-    }
+        listaPublicacao = (List<Publicacao>) this.filtraPorPublicacao(listaDivulgacoes);        
+        List<Publicacao> listaPublicacaoVigentes = new PublicacaoDAO().buscarVigentesAposPeriodoVigencia(dia);
+        
+        listaNotificacao = (List<Notificacao>) this.filtraPorNotificacao(listaDivulgacoes);
     
-    public Collection divulgaNotificacao(){
-         for (Notificacao n : list()) {
-            if (n.getFimVigencia().after(dia)) {
-                notificacoesAgendadas.add(n);
-            }
+        for (Notificacao n : list()) {
+            n.getDispositivo();
         }
-        return null; 
     }
-  */  
     
     public Collection obterTodasDivulgacoesAgendadas() {
         Date dia = new Date(); 
-        Divulgacoes listaDivulgacoes = (Divulgacoes) new ArrayList();           
-        
-    //    List<Publicacao> listaPublicacaoAgendadas = new PublicacaoDAO().buscarAgendadas(dia);
-    //    setListaPublicacao(listaPublicacaoAgendadas);
+        Divulgacoes listaDivulgacoes = (Divulgacoes) new ArrayList(); 
         return (Collection) listaDivulgacoes;
     }
 
