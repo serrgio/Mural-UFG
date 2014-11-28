@@ -5,7 +5,6 @@
  */
 package br.ufg.inf.fabrica.mural.central.dominio;
 
-import br.ufg.inf.fabrica.mural.central.persistencia.NotificacaoDAO;
 import br.ufg.inf.fabrica.mural.central.persistencia.PublicacaoDAO;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -99,43 +98,52 @@ public class ExecutaDivulgacao implements Serializable, Persistable<Long> {
 
     public void executarDivulgacao() {      
         Date dia = new Date();        
-        obterTodasDivulgacoesAgendadas();
-        
-        divulgaPublicacao();
-        divulgaNotificacao();
-    }
+        Collection listaDivulgacoes = obterTodasDivulgacoesAgendadas(); 
+        listaPublicacao = filtraPorPublicacao(listaDivulgacoes);
+        listaNotificacao = filtraPorNotificacao(listaDivulgacoes);
 
+    }
+/*
     public Collection divulgaPublicacao() {
         
         return null;
     }
     
     public Collection divulgaNotificacao(){
-         //for (Notificacao n : list()) {
-            //if (n.getFimVigencia().after(dia)) {
-                //notificacoesAgendadas.add(n);
-         //   }
-     //   }
+         for (Notificacao n : list()) {
+            if (n.getFimVigencia().after(dia)) {
+                notificacoesAgendadas.add(n);
+            }
+        }
         return null; 
     }
+  */  
     
-    
-    public void obterTodasDivulgacoesAgendadas() {
-        Date dia = new Date();        
+    public Collection obterTodasDivulgacoesAgendadas() {
+        Date dia = new Date(); 
+        Divulgacoes listaDivulgacoes = (Divulgacoes) new ArrayList();           
         
-        List<Divulgacoes> listaDivulgacoes = (List<Divulgacoes>) new NotificacaoDAO();
-
-        
-        List<Publicacao> listaPublicacaoAgendadas = new PublicacaoDAO().buscarAgendadas(dia);
-        setListaPublicacao(listaPublicacaoAgendadas);
+    //    List<Publicacao> listaPublicacaoAgendadas = new PublicacaoDAO().buscarAgendadas(dia);
+    //    setListaPublicacao(listaPublicacaoAgendadas);
+        return (Collection) listaDivulgacoes;
     }
 
-    public Collection filtraPorPublicacao(Collection listaDivulgacao) {
-        return null;
+    public Collection filtraPorPublicacao(Collection listaDivulgacoes) {
+        for (Divulgacoes n : list()) {
+            if (n.equals(listaPublicacao)) {
+                listaPublicacao.add(n);
+            }
+        }
+        return listaPublicacao;
     }
 
-    public Collection filtraPorNotificacao(Collection listaDivulgacao) {
-        return null;
+    public Collection filtraPorNotificacao(Collection listaDivulgacoes) {
+        for (Divulgacoes n : list()) {
+            if (n.equals(listaNotificacao)) {
+                listaNotificacao.add(n);
+            }
+        }
+        return listaNotificacao;
     }
 
     @Override
