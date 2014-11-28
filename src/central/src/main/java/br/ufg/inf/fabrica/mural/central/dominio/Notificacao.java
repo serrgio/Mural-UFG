@@ -17,7 +17,7 @@ import java.util.Objects;
  * @author Vinícius
  */
 @Entity
-public class Notificacao implements Serializable, Persistable<Long> {
+public class Notificacao implements Divulgacoes, Serializable, Persistable<Long> {
 
     private static final long serialVersionUID = 1L;
     @Id

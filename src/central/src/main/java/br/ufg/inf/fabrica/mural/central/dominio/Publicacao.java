@@ -16,7 +16,7 @@ import java.util.Objects;
  * @author Vinícius
  */
 @Entity
-public class Publicacao implements Serializable, Persistable<Long> {
+public class Publicacao implements Divulgacoes, Serializable, Persistable<Long> {
 
     private static final long serialVersionUID = 1L;
     @Id

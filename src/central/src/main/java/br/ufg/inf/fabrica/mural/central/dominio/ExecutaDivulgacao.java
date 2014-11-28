@@ -99,34 +99,35 @@ public class ExecutaDivulgacao implements Serializable, Persistable<Long> {
 
     public void executarDivulgacao() {      
         Date dia = new Date();        
-        List<Notificacao> notificacoesAgendadas = new NotificacaoDAO().buscarAgendadas(dia);
-        List<Publicacao> publicacaoAgendadas = new PublicacaoDAO().buscarAgendadas(dia);
+        obterTodasDivulgacoesAgendadas();
         
-        divulgaPublicacao(publicacaoAgendadas, dia);
-        divulgaNotificacao(notificacoesAgendadas, dia);
+        divulgaPublicacao();
+        divulgaNotificacao();
     }
 
-    public Collection divulgaPublicacao(Collection publicacaoAgendadas, Date dia) {
-        for (Publicacao n : list()) {
-            if (n.getFimVigencia().after(dia)) {
-                publicacaoAgendadas.add(n);
-            }
-        }
-        return publicacaoAgendadas;
+    public Collection divulgaPublicacao() {
+        
+        return null;
     }
     
-    public Collection divulgaNotificacao(Collection notificacoesAgendadas, Date dia){
-         for (Notificacao n : list()) {
-            if (n.getFimVigencia().after(dia)) {
-                notificacoesAgendadas.add(n);
-            }
-        }
-        return notificacoesAgendadas; 
-    }
-    
-    /*
-    public Collection obterTodasDivulgacoesAgendadas() {
+    public Collection divulgaNotificacao(){
+         //for (Notificacao n : list()) {
+            //if (n.getFimVigencia().after(dia)) {
+                //notificacoesAgendadas.add(n);
+         //   }
+     //   }
         return null; 
+    }
+    
+    
+    public void obterTodasDivulgacoesAgendadas() {
+        Date dia = new Date();        
+        
+        List<Divulgacoes> listaDivulgacoes = (List<Divulgacoes>) new NotificacaoDAO();
+
+        
+        List<Publicacao> listaPublicacaoAgendadas = new PublicacaoDAO().buscarAgendadas(dia);
+        setListaPublicacao(listaPublicacaoAgendadas);
     }
 
     public Collection filtraPorPublicacao(Collection listaDivulgacao) {
@@ -136,7 +137,7 @@ public class ExecutaDivulgacao implements Serializable, Persistable<Long> {
     public Collection filtraPorNotificacao(Collection listaDivulgacao) {
         return null;
     }
-*/
+
     @Override
     public Long getId() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
