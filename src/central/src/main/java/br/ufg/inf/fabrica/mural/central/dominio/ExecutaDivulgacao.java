@@ -108,6 +108,7 @@ public class ExecutaDivulgacao implements Serializable, Persistable<Long> {
         for (Notificacao n : list()) {
             n.getDispositivo();
         }
+        
     }
     
     public Collection obterTodasDivulgacoesAgendadas() {
